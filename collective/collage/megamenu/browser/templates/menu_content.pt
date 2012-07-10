@@ -1,0 +1,28 @@
+<tal:manager replace="structure provider:collage.ContentManager" />
+
+<div class="megamenu-content"
+    tal:define="image here/image_mini|nothing">
+
+    <p tal:condition="here/Title" class="megamenu-title">
+        <a href="#"
+         tal:attributes="href here/absolute_url"
+         tal:content="here/Title">
+         Title
+        </a>
+    </p>
+
+    <div class="megamenu-image"
+         tal:condition="image">
+      <a href="#"
+         tal:attributes="href here/absolute_url">
+        <img tal:replace="structure image/tag" src="" alt="" />
+      </a>
+    </div>
+
+
+    <p class="megamenu-description"
+       tal:condition="here/Description"
+       tal:content="here/Description">
+       Description
+    </p>
+</div>

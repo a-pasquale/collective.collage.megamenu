@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="collective.collage.megamenu">
+    
+  <!-- Megamenu support for ATFolders -->
+  <class class="Products.ATContentTypes.content.folder.ATFolder">
+     <implements interface="collective.collage.megamenu.interfaces.IMegamenuCapable" />
+  </class>
+    
+  <include package="collective.monkeypatcher" file="meta.zcml" />
+  <monkey:patch
+      description="Special icon for Megamenu enabled folders"
+      class="Products.ATContentTypes.content.folder.ATFolder"
+      original="getIcon"
+      preserveOriginal="true"
+      replacement="collective.collage.megamenu.patch.getIcon"
+      />
+      
+  <monkey:patch
+      description="Special icon for Megamenu enabled folders"
+      class="Products.ATContentTypes.content.folder.ATFolder"
+      original="icon"
+      preserveOriginal="true"
+      replacement="collective.collage.megamenu.patch.getIcon"
+      />
+
+</configure>

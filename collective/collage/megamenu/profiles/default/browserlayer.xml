@@ -1,0 +1,8 @@
+<layers>
+ <layer name="collective.collage.megamenu"
+   interface="collective.collage.megamenu.interfaces.IMegamenuLayer"
+ />
+</layers>
+
+
+

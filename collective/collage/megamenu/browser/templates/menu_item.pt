@@ -1,0 +1,21 @@
+<tal:manager replace="structure provider:collage.ContentManager" />
+<tal:item define="skin view/getSkin; object view/object">
+    <a href=""
+        tal:attributes="href view/url; title object/Description; class skin"
+        tal:condition="python:skin!='collage-megamenu-title'"
+        tal:content="object/Title">
+        
+        Link
+    
+    </a>
+    
+    <span
+        tal:attributes="class skin"
+        tal:condition="python:skin=='collage-megamenu-title'"
+        tal:content="object/Title">
+        
+        Title
+    
+    </span>
+        
+</tal:item>

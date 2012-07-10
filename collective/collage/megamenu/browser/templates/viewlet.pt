@@ -1,0 +1,18 @@
+<tal:viewlet
+    define="folder view/menufolder">
+    
+<dl class="portalMessage warning"
+    tal:condition="view/testing|python:False">
+    <dt i18n:domain="plone" i18n:translate="">Info</dt>
+    <dd i18n:translate="">
+        This is not the current megamenu, but a test preview of "<span tal:replace="view/folder_title" i18n:name="title">title</span>" as a possible megamenu folder. If you like it, you can 
+            <a href="" tal:attributes="href string:${view/folder_url}/@@menu-set-current" i18n:name="link">
+                set it as the new current megamenu folder
+            </a>.
+    </dd>
+</dl>
+
+<tal:megamenu
+    content="structure folder/@@menu-renderer|nothing" />
+
+</tal:viewlet>

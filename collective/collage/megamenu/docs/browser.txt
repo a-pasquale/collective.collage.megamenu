@@ -1,0 +1,238 @@
+Initial setup of portal and browser::
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> from Products.PloneTestCase.setup import portal_owner, default_password
+    >>> portal.error_log.setProperties(20, ignored_exceptions=())
+    >>> portal_url = self.portal.absolute_url()
+    >>> browser = Browser()
+
+Log in as administrator::
+
+    >>> browser.open(portal_url + '/login')
+    >>> browser.getControl('Login Name').value = portal_owner
+    >>> browser.getControl('Password').value = default_password
+    >>> browser.getControl('Log in').click()
+    
+Somehow vielets.xml is not fully processed in testing mode
+so we have to manually hide plone.global_sections::
+
+    >>> browser.open(portal_url + '/@@manage-viewlets')
+    >>> browser.getLink(url='@@manage-viewlets?hide=plone.portalheader%3Aplone.global_sections').click()
+    
+Go to Menu folder and set it as current megamenu
+    >>> browser.open(self.menu.absolute_url())
+    >>> browser.getLink('Enable Megamenu').click()
+    >>> "Folder can now be used as megamenu" in browser.contents
+    True
+    >>> browser.getLink('Current Megamenu').click()
+    >>> "Press 'Save' button to select 'Menu folder' as Megamenu folder" in browser.contents
+    True
+    
+We are now in megamenu controllpanel
+    >>> '/@@megamenu-controlpanel' in browser.url
+    True
+    
+We want to display megamenu viewlet
+    >>> browser.getControl('Display megamenu').click()
+    
+And get 'megamenu_folder' field to make sure:
+
+1. There's just one option (a single IMegamenuEnabled folder)
+2. The single option is our 'Menu folder'
+3. It's selected (we are getting here through 'Current Megamenu' action)
+
+    >>> megamenu_folder = browser.getControl(name='form.widgets.megamenu_folder:list')
+    >>> len(megamenu_folder.controls)
+    1
+    >>> selected_folder = megamenu_folder.controls[0]
+    >>> selected_folder.optionValue == self.menu.UID()
+    True
+    >>> selected_folder.selected
+    True
+    >>> browser.getControl('Save').click()
+    >>> 'Changes saved' in browser.contents
+    True
+    
+Now we test megamenu options:
+
+1. New HTML markup is present
+#. Home link.
+#. Collage dropdown (with down-arrow).
+
+    >>> '<ul id="portal-megamenu" class="megamenu">' in browser.contents
+    True
+    >>> home = browser.getLink('Home')
+    >>> home.url == portal_url+'/'
+    True
+    >>> home.attrs['class'].strip()
+    'menu-item'
+    >>> collage = browser.getLink('Collage')
+    >>> collage.attrs['class'].strip()
+    'menu-item menu-dropdown'
+    >>> collage.text
+    'Collage \xe2\x96\xbc'
+    
+#. Sub-menu 'image' link::
+
+    >>> image = browser.getLink('image')
+    >>> image.attrs['class'].strip()
+    'collage-megamenu-highlight'
+    >>> image.attrs['title']
+    'Dummy description for image'
+    
+#. Sub-menu 'doc' title::
+
+    >>> '<span class="collage-megamenu-title">Test document</span>' in browser.contents
+    True
+    
+#. Sub-menu 'folder-1' and 'folder-2' link::
+
+    >>> browser.getLink('Test folder #1')
+    <Link text='Test folder #1' url='.../folder-1'>
+    >>> browser.getLink('Test folder #2')
+    <Link text='Test folder #2' url='.../folder-2'>
+    
+#. Sub-menu 'external-link' option::
+
+    >>> elink = browser.getLink('External link')
+    >>> elink.attrs['title']
+    'External link to plone.org'
+    >>> elink.url
+    'http://plone.org/'
+    
+#. Sub-menu 'internal-link' option, relative to portal URL::
+
+    >>> ilink = browser.getLink('Internal link')
+    >>> ilink.url == portal_url + '/no-where'
+    True
+    
+#. Sub-menu 'news-item' intro with linked title, description and image::
+
+    >>> browser.getLink('Test news item')
+    <Link text='Test news item' url='.../news-item'>
+    >>> '<p class="megamenu-description">Dummy description for news item</p>' in browser.contents
+    True
+    >>> 'src="' + portal_url + '/news-item/image_mini' in browser.contents
+    True
+    
+Go back to Megamenu controlpanel and enable AJAX loading::
+
+    >>> browser.url.endswith('/plone_control_panel')
+    True
+    >>> browser.getLink('Megamenu settings').click()
+    >>> deferred_rendering = browser.getControl('Load dropdown menu via AJAX')
+    >>> deferred_rendering.selected
+    False
+    >>> deferred_rendering.click()
+    >>> browser.getControl('Save').click()
+    
+Now check that sub-menu options aren't loaded, but a 'Loading...' link is displayed
+
+    >>> browser.getLink('image')
+    Traceback (most recent call last):
+    ...
+    LinkNotFoundError
+    >>> loading = browser.getLink('Loading data, please wait...')
+    >>> loading.url.endswith('/menu/collage/@@menu-renderer')
+    True
+    
+Let's follow that link and check that sub-menu options are there
+    >>> browser.open(loading.url)
+    >>> browser.getLink('image')
+    <Link text='Test image' url='.../image'>
+    
+Suppose now that we want to set another megamenu, so we try with other_menu folder
+    >>> browser.open(self.other_menu.absolute_url())
+    >>> browser.getLink('Enable Megamenu').click()
+    >>> browser.getLink('Test Megamenu').click()
+
+In test mode, current megamenu isn't shown but testing megamenu-folder options
+together with an info message::
+
+    >>> browser.getLink('image')
+    Traceback (most recent call last):
+    ...
+    LinkNotFoundError
+    >>> browser.getLink('Another link').url.endswith('/somewhere')
+    True
+    >>> 'This is not the current megamenu, but a test preview of "Alternative menu" as a possible megamenu folder.' in browser.contents
+    True
+    >>> link = browser.getLink('set it as the new current megamenu folder')
+    >>> link.url.endswith('/other-menu/@@menu-set-current')
+    True
+    
+Although we don't plan to set this megamenu, we'll check if 'Megamenu folder' options is updated::
+    
+    >>> link.click()
+    >>> megamenu_folder = browser.getControl(name='form.widgets.megamenu_folder:list')
+    >>> len(megamenu_folder.controls)
+    2
+    >>> self.other_menu.UID() in megamenu_folder.options
+    True
+    >>> browser.getControl('Cancel').click()
+    >>> 'Edit cancelled' in browser.contents
+    True
+
+Let's go back to menu folder and disable it as Megamenu::
+
+    >>> browser.open(self.menu.absolute_url())
+    >>> browser.getLink('Disable Megamenu').click()
+    >>> "Folder can no longer be used as megamenu" in browser.contents
+    True
+    
+Now that there's no selected megamenu folder, there's no megamenu markup in the page::
+
+    >>> '<ul id="portal-megamenu" class="megamenu">' in browser.contents
+    False
+    
+Up until now, all megamenu folder contents were accessible to regular users in search results::
+    >>> browser.getLink('Log out').click()
+    >>> browser.getControl('Search Site').value = 'Menu'
+    >>> browser.getControl('Search', index=1).click()
+    >>> browser.getLink('Menu folder')
+    <Link text='Menu folder' url='...'>
+    >>> browser.getLink('Alternative menu')
+    <Link text='Alternative menu' url='...'>
+    
+However, there's an extra feature in Megamenu controlpanel to hide/show menu folder
+and its contents when enabling/disabling as Megamenu::
+
+    >>> browser.open(portal_url + '/@@megamenu-controlpanel')
+    >>> browser.getControl('Login Name').value = portal_owner
+    >>> browser.getControl('Password').value = default_password
+    >>> browser.getControl('Log in').click()
+
+    >>> browser.getControl('Hide folder contents when enabling as megamenu').click()
+    >>> browser.getControl('Show folder contents when disabling as megamenu').click()
+    >>> browser.getControl('Save').click()
+    
+If we now enable 'Menu folder', its contents and the folder itself will be automatically
+hidden in search results::
+
+    >>> browser.open(self.menu.absolute_url())
+    >>> browser.getLink('Enable Megamenu').click()
+    >>> browser.getLink('Current Megamenu').click()
+    >>> browser.getControl('Save').click()
+    >>> '<ul id="portal-megamenu" class="megamenu">' in browser.contents
+    True
+    >>> browser.getLink('Log out').click()
+    >>> browser.getControl('Search Site').value = 'Menu'
+    >>> browser.getControl('Search', index=1).click()
+    >>> browser.getLink('Menu folder')
+    Traceback (most recent call last):
+    ...
+    LinkNotFoundError
+    >>> browser.getLink('Alternative menu')
+    <Link text='Alternative menu' url='...'>
+    
+Menu folder and its contents are, although, accessible by regular users
+as they were hidden by means of expiration date::
+
+    >>> from DateTime import DateTime
+    >>> yesterday = DateTime() - 1
+    >>> browser.open(self.menu.absolute_url())
+    >>> self.menu.getExpirationDate() <= yesterday
+    True
+    >>> browser.open(self.menu.absolute_url() + '/collage')
+    >>> self.menu.collage.getExpirationDate() <= yesterday
+    True

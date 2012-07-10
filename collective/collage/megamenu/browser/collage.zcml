@@ -1,0 +1,129 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.collage.megamenu">
+
+
+  <!-- Collage alternative renderers -->
+  
+
+  <browser:page
+    name="menu-renderer"
+    for="Products.Collage.interfaces.ICollage"
+    permission="zope.Public"
+    class="Products.Collage.browser.renderer.SimpleContainerRenderer"
+    template="templates/collage_renderer.pt"
+    layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+    />
+
+  <browser:page
+    name="menu-renderer"
+    for="Products.Collage.interfaces.ICollageRow"
+    permission="zope.Public"
+    class="Products.Collage.browser.renderer.SimpleContainerRenderer"
+    template="templates/row_renderer.pt"
+    layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+    />
+
+  <browser:page
+    name="menu-renderer"
+    for="Products.Collage.interfaces.ICollageColumn"
+    permission="zope.Public"
+    class="Products.Collage.browser.renderer.SimpleContainerRenderer"
+    template="templates/column_renderer.pt"
+    layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+    />
+
+
+  <!-- Menu item / column / row -->
+  <browser:page
+    name="menu"
+    for="Products.ATContentTypes.interface.IATContentType"
+    class="collective.collage.megamenu.browser.collage.BasicMenuLayout"
+    permission="zope.Public"
+    template="templates/menu_item.pt"
+    layer="Products.Collage.interfaces.ICollageBrowserLayer"
+    /> 
+   
+  <browser:page
+    name="menu"
+    for="Products.Collage.interfaces.ICollageColumn"
+    class="Products.Collage.browser.views.BaseView"
+    permission="zope.Public"
+    template="templates/menu_column.pt"
+    layer="Products.Collage.interfaces.ICollageBrowserLayer"
+    /> 
+   
+  <browser:page
+    name="menu"
+    for="Products.Collage.interfaces.ICollageRow"
+    class="collective.collage.megamenu.browser.collage.MenuRowLayout"
+    permission="zope.Public"
+    template="templates/menu_row.pt"
+    layer="Products.Collage.interfaces.ICollageBrowserLayer"
+    /> 
+   
+  <!-- Nested Collage-->
+  <browser:page
+    name="nested-menu"
+    for="Products.Collage.interfaces.ICollage"
+    class="collective.collage.nested.browser.views.NestedCollageView"
+    permission="zope.Public"
+    template="templates/nested_menu.pt"
+    layer="Products.Collage.interfaces.ICollageBrowserLayer"
+    /> 
+
+  <!-- Collage skins -->
+  <utility
+    name="collage-megamenu-title"
+    provides="collective.collage.megamenu.browser.collage.IMenuLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.TitleSkin"
+    />
+
+  <utility
+    name="collage-megamenu-link"
+    provides="collective.collage.megamenu.browser.collage.IMenuLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.LinkSkin"
+    />
+
+  <utility
+    name="collage-megamenu-highlight"
+    provides="collective.collage.megamenu.browser.collage.IMenuLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.HighlightedLinkSkin"
+    />
+
+  <utility
+    name="collage-megamenu-nolines"
+    provides="collective.collage.megamenu.browser.collage.IMenuRowLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.NoLinesSkin"
+    />
+    
+  <utility
+    name="collage-megamenu-hlines"
+    provides="collective.collage.megamenu.browser.collage.IMenuRowLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.HLinesSkin"
+    />
+     
+  <utility
+    name="collage-megamenu-vlines"
+    provides="collective.collage.megamenu.browser.collage.IMenuRowLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.VLinesSkin"
+    />
+    
+  <utility
+    name="collage-megamenu-hvlines"
+    provides="collective.collage.megamenu.browser.collage.IMenuRowLayoutSkin"
+    factory="collective.collage.megamenu.browser.collage.HVLinesSkin"
+    />
+     
+
+  <!-- additional layouts -->
+  <browser:page
+    name="intro"
+    for="Products.ATContentTypes.interface.IATContentType"
+    permission="zope.Public"
+    template="templates/menu_content.pt"
+    layer="Products.Collage.interfaces.ICollageBrowserLayer"
+    /> 
+
+</configure>

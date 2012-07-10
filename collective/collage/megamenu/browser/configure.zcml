@@ -1,0 +1,102 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.collage.megamenu">
+
+
+  <include file="collage.zcml" />
+
+  <browser:page
+     name="menu-renderer"
+     for="collective.collage.megamenu.interfaces.IMegamenuEnabled"
+     permission="zope.Public"
+     class="collective.collage.megamenu.browser.renderer.MenuRenderer"
+     allowed_interface="collective.collage.megamenu.browser.interfaces.IMenuRenderer"
+     template="templates/menu_renderer.pt"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+
+  <browser:page
+     name="menu-enable"
+     for="collective.collage.megamenu.interfaces.IMegamenuCapable"
+     permission="cmf.ManagePortal"
+     class="collective.collage.megamenu.browser.views.EnablerView"
+     attribute="enable"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+
+  <browser:page
+     name="menu-disable"
+     for="collective.collage.megamenu.interfaces.IMegamenuCapable"
+     permission="cmf.ManagePortal"
+     class="collective.collage.megamenu.browser.views.EnablerView"
+     attribute="disable"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+
+  <browser:page
+     name="menu-is-enabled"
+     for="*"
+     permission="zope.Public"
+     class="collective.collage.megamenu.browser.views.EnablerView"
+     attribute="is_enabled"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+
+  <browser:page
+     name="menu-is-disabled"
+     for="*"
+     permission="zope.Public"
+     class="collective.collage.megamenu.browser.views.EnablerView"
+     attribute="is_disabled"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+
+  <browser:page
+     name="menu-set-current"
+     for="collective.collage.megamenu.interfaces.IMegamenuCapable"
+     permission="zope.Public"
+     class="collective.collage.megamenu.browser.views.EnablerView"
+     attribute="set_as_current"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+     
+  <browser:page
+     name="megamenu-settings"
+     for="*"
+     permission="zope.Public"
+     allowed_interface="collective.collage.megamenu.interfaces.ICookedSettingsView"
+     class="collective.collage.megamenu.browser.views.CookedSettingsView"
+     layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+     />
+
+
+  <!-- Resources registration -->
+  
+  <browser:resourceDirectory
+        name="collective.collage.megamenu"
+        directory="resources"
+        layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+        />
+
+  <!-- Viewlet registration -->
+
+  <browser:viewlet
+        name="collective.collage.megamenu.megamenu"
+        manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+        class="collective.collage.megamenu.browser.viewlet.MegamenuViewlet"
+        permission="zope2.View"
+        layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+        />
+
+  <!-- Control panel related directives -->
+  
+  <browser:page
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      name="megamenu-controlpanel"
+      class="collective.collage.megamenu.browser.controlpanel.MegamenuSettingsFormWrapper"
+      permission="cmf.ManagePortal" 
+      layer="collective.collage.megamenu.interfaces.IMegamenuLayer"
+      />
+
+</configure>

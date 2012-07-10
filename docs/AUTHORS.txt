@@ -1,0 +1,19 @@
+Credits
+=======
+
+Based on `Mega Drop Down Menus w/ CSS & jQuery 
+<http://www.sohtanaka.com/web-design/mega-drop-downs-w-css-jquery/>`_ 
+implementation by Soh Tanaka.
+
+Development
+-----------
+
+* Marcos F. Romero <marcos.romero {at} inter-cultura {dot} com> (developer)
+* Juan Pablo Gimenez <jpg {at} rcom {dot} com {dot} ar> (advisor)
+
+Translations
+------------
+
+* Spanish (es): Marcos F. Romero
+* English (en): Marcos F. Romero
+

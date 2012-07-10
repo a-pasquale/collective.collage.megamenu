@@ -1,0 +1,31 @@
+Changelog
+=========
+
+1.1.2 (2011-11-25)
+------------------
+- Applied ``visualNoPrint`` class to megamenu to hide it in print mode
+
+1.1.1 (2011-08-05)
+------------------
+- Corrected z-index for drop-down and shadow
+- Added native collage class names to triggerMove JS function to work
+- Added collage-patch.js with new version of triggerMove that uses
+  collage elements in the current collage object instead of the whole DOM
+- Automatically install Plone 3 classic theme in Plone 3
+
+1.1 (2011-08-05)
+----------------
+- Native support for plone.app.folder if installed (conditional include)
+- Added shadow to drop-down box
+- Added handy class names to top-level ``li`` elements for styling purposes:
+  ``top-level-1``, ``top-level-2``, ... ``top-level-last``
+- Added handy class names to prev/next-to ``active`` drop-down ``li`` element
+- Improved accessibility using new 'click' event handlers on menu options
+
+
+1.0 (2011-04-23)
+----------------
+- Megamenu implementation with Collage
+- Native support for ATFolder
+- i18n support: English and Spanish translations
+- Tested in Plone 3.3.5 and Plone 4.0.3

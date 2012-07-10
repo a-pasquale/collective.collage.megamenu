@@ -1,0 +1,14 @@
+<tal:items define="items view/getItems">
+  <tal:item tal:repeat="item items">
+    <li class="collage-item"
+         tal:define="ptype python:context.plone_utils.normalizeString(getattr(item.context, 'portal_type', ''))"
+         tal:attributes="class string:collage-item menu-item menu_item_${repeat/item/number} menu_type_${ptype} menu_view_${item/__name__}">
+      <tal:item replace="structure item" />
+    </li>
+  </tal:item>
+
+  <tal:no-items condition="not: items">
+    &nbsp;
+  </tal:no-items>
+</tal:items>
+

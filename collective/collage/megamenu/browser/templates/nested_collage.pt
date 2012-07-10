@@ -1,0 +1,5 @@
+<tal:manager replace="structure provider:collage.ContentManager" />
+
+<div tal:replace="structure here/@@renderer">
+    Nested Collage contents
+</div>

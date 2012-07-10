@@ -1,0 +1,19 @@
+<tal:manager replace="structure provider:collage.ContentManager" />
+
+<div tal:define="skin python:view.getSkin() or ''"
+     tal:attributes="class string:menu-row ${skin}">
+    <tal:renderer define="renderer nocall: here/@@menu-renderer">
+      <tal:batches tal:repeat="columns view/getColumnBatches">
+      <div tal:define="layout python: ('one-column', 'two-columns-equal', 'three-columns-equal', 'four-columns-equal', 'five-columns-equal')
+                         [len(columns)-1]"
+             tal:attributes="class string:$layout"
+             tal:omit-tag="not:view/inComposeView">
+
+        <tal:columns replace="structure python: renderer(columns)" />
+      </div>
+
+      </tal:batches>
+    </tal:renderer>
+
+</div>
+<div tal:condition="view/inComposeView" class="visualClear"><!-- nothing here --></div>

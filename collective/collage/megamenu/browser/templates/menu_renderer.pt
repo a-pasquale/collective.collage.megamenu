@@ -1,0 +1,35 @@
+<ul id="portal-megamenu" class="megamenu visualNoPrint"
+    tal:define="items view/getItems">
+
+    <tal:items repeat="item items">
+    <li tal:define="last repeat/item/end;
+                    last_class python:last and 'top-level-last' or ''"
+    	tal:attributes="class string:top-level ${item/selected_class} top-level-${repeat/item/number} ${last_class};
+                        id string:mm-tl-${item/id}">
+        <a class="menu-item" href="" 
+            tal:attributes="href item/url; 
+                            title item/description;
+                            class string:menu-item ${item/class}">
+            <tal:title content="item/title">
+            Menu item
+            </tal:title>
+            
+            <span class="arrowDownAlternative" tal:condition="item/with_menu">
+                &#9660;
+            </span>
+        </a>
+
+        <tal:dropdown condition="item/with_menu">
+        <div class="sub" 
+            tal:condition="not:item/deferred|nothing"
+            tal:content="structure item/dropdown" />
+
+        <div class="sub" 
+            tal:condition="item/deferred">
+            <a href="" rel="deferred" tal:attributes="href string:${item/deferred}">Loading data, please wait...</a>
+        </div>
+       
+        </tal:dropdown>
+    </li>
+    </tal:items>
+</ul>

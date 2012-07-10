@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.collage.megamenu">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <!-- Include configuration for dependencies listed in setup.py -->
+  <includeDependencies package="." />
+  
+  <include package=".browser" />
+  <include file="atfolder.zcml" />
+  <include 
+      zcml:condition="installed plone.app.folder" 
+      file="ploneappfolder.zcml" 
+      />
+  <include file="profiles.zcml" />
+  
+  <i18n:registerTranslations directory="locales" />
+
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component="collective.collage.megamenu.vocabulary.megamenues_vocabulary"
+      name="collective.collage.megamenues"
+      />
+
+      
+</configure>

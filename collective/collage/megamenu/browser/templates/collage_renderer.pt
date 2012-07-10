@@ -1,0 +1,3 @@
+<div class="collage-row" tal:repeat="item view/getItems" tal:omit-tag="">
+    <tal:item replace="structure item" />
+</div>

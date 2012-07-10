@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts" meta_type="JavaScripts Registry"
+   autogroup="False">
+ <javascript cacheable="True" compression="none" cookable="True"
+    enabled="True" expression=""
+    id="++resource++collective.collage.megamenu/megamenu.js"
+    inline="False" />
+ <javascript cacheable="True" compression="none" cookable="True"
+    enabled="True" expression=""
+    id="++resource++collective.collage.megamenu/jquery.hoverIntent.minified.js"
+    inline="False" />
+
+ <!-- Collage patch -->
+ <javascript cacheable="True" compression="none" cookable="True"
+    enabled="True" expression="nocall: object/@@collage_view|nothing"
+    id="++resource++collective.collage.megamenu/collage-patch.js"
+    inline="False" insert-after="++resource++collage-resources/collage.js" />
+
+</object>
+

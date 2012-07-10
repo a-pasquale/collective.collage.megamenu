@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: collective.collage.megamenu 1.0\n"
+"POT-Creation-Date: 2011-04-18 14:03+0000\n"
+"PO-Revision-Date: 2011-04-18 11:14-0300\n"
+"Last-Translator: Marcos F. Romero <marcos.romero {at} inter-cultura {dot} com>\n"
+"Language-Team: Spanish <marcos.romero {at} inter-cultura {dot} com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./browser/collage.py:86
+msgid "Both lines"
+msgstr "Ambas líneas"
+
+#: ./browser/collage.py:80
+msgid "Bottom line"
+msgstr "Linea inferior"
+
+#: ./profiles/default/actions.xml
+msgid "Current Megamenu"
+msgstr "Megamenú actual"
+
+#: ./profiles/default/actions.xml
+msgid "Disable Megamenu"
+msgstr "Desactivar Megamenú"
+
+#: ./interfaces.py:28
+msgid "Display megamenu"
+msgstr "Mostrar Megamenú"
+
+#: ./profiles/default/actions.xml
+msgid "Enable Megamenu"
+msgstr "Activar Megamenú"
+
+#: ./browser/views.py:49
+msgid "Folder can no longer be used as megamenu"
+msgstr "La carpeta ya no puede utilizarse como megamenú"
+
+#: ./browser/views.py:37
+msgid "Folder can now be used as megamenu"
+msgstr "La carpeta ahora puede utilizarse como megamenú"
+
+#: ./interfaces.py:37
+msgid "Hide folder contents when enabling as megamenu"
+msgstr "Ocultar los contenidos de la carpeta al activarla como supermenú"
+
+#: ./browser/collage.py:56
+msgid "Highlight"
+msgstr "Destacado"
+
+#: ./interfaces.py:38
+msgid "If selected, after enabling a folder as megamenu, all its contents (and the folder itself)  will be automatically set as expired hiding them in search results from regular users. This can prevent visitors to learn about content that should be shown only in the megamenu. You can also hide or show every content manually by editing it and setting an expiration date"
+msgstr "Si está seleccionado, al activar una carpeta como megamenú, se asignará automáticamente una fecha de vencimiento a todos sus contenidos, y la carpeta misma, lo que provocará que los usuarios comunes no podrán encontrarlos en los resultados de búsqueda. Esto evita que los visitantes del sitio descubran contenido que sólo deberían estar disponibles en el megamenú. Alternativamente, usted puede ocultar o mostrar cada contenido manualmente editándolo y definiendo una fecha de vencimiento."
+
+#: ./interfaces.py:35
+msgid "If selected, dropdown options will not be included in original HTML but loaded via AJAX. These options won't be available for search engines."
+msgstr "Si está seleccionado, las opciones del desplegable no se incluirán en el HTML original sino que se cargarán mediante AJAX. Para los motores de búsqueda estas opciones serán invisibles."
+
+#: ./browser/collage.py:53
+msgid "Link"
+msgstr "Vínculo"
+
+#: ./interfaces.py:34
+msgid "Load dropdown menu via AJAX"
+msgstr "Cargar el menú desplegable mediante AJAX"
+
+#: ./interfaces.py:30
+msgid "Megamenu folder"
+msgstr "Carpeta Megamenú"
+
+#: ./browser/controlpanel.py:15
+#: ./profiles/default/controlpanel.xml
+msgid "Megamenu settings"
+msgstr "Configuración de Megamenú"
+
+#: ./browser/collage.py:24
+msgid "Menu"
+msgstr "Menú"
+
+#: ./browser/collage.py:77
+msgid "No line"
+msgstr "Sin líneas"
+
+#: ./browser/views.py:115
+msgid "Press 'Save' button to select '${title}' as Megamenu folder"
+msgstr "Presione el botón 'Guardar' para seleccionar '${title}' como la Carpeta Megamenú"
+
+#: ./interfaces.py:41
+msgid "Show folder contents when disabling as megamenu"
+msgstr "Mostrar los contenidos de la carpeta al desactivarla como megamenú."
+
+#: ./profiles/default/actions.xml
+msgid "Test Megamenu"
+msgstr "Probar Megamenú"
+
+#: ./browser/collage.py:50
+msgid "Title"
+msgstr "Título"
+
+#: ./browser/collage.py:83
+msgid "Vertical lines"
+msgstr "Líneas verticales"
+

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<action-icons>
+ <action-icon category="controlpanel" action_id="megamenu"
+              title="Megamenu settings" priority="0"
+              icon_expr="++resource++collective.collage.megamenu/megamenu.gif"/>
+</action-icons>
+

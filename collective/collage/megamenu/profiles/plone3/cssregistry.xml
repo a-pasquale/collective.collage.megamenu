@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_css" meta_type="Stylesheets Registry">
+ <stylesheet title=""
+    cacheable="True" compression="safe" conditionalcomment="" cookable="True"
+    enabled="1" expression="" id="++resource++collective.collage.megamenu/megamenu-classic.css" media="screen" rel="stylesheet"
+    rendering="link" insert-after="++resource++collective.collage.megamenu/megamenu.css" />
+</object>

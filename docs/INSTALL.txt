@@ -1,0 +1,30 @@
+Installation
+============
+
+* Add ``collective.collage.megamenu`` to the list of eggs to install and
+  extend to a known good set for ``plone.app.registry``::
+
+    [buildout]
+    ...
+    extends = 
+        ...
+        http://good-py.appspot.com/release/plone.app.registry/1.0b2
+    ...
+    eggs =
+        ...
+        collective.collage.megamenu
+
+* Tell the plone.recipe.zope2instance recipe to install a ZCML slug::
+
+    [instance]
+    recipe = plone.recipe.zope2instance
+    ...
+    zcml =
+        collective.collage.megamenu
+
+* Re-run buildout, e.g. with::
+
+    $ ./bin/buildout
+
+You can skip the ZCML slug if you are using Plone 3.3 or if you are going to explicitly include
+the package from another package's configure.zcml file.
