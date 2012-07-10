@@ -47,9 +47,16 @@ jq(document).ready(function() {
             });
 
             biggestRow += 30; //Set width adding 15 + 15 px (left and right padding)
-            this.css({
-                'width': biggestRow
-            });
+            if ($(window).width() <= 768) {
+                this.css({
+                    'width': '100%'
+                });
+            } else {
+                this.css({
+                    'width': biggestRow
+                });
+            }
+
             this.find(">.menu-row:last").css({
                 'margin': '0'
             });
